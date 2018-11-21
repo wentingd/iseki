@@ -6,9 +6,11 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
+const store = initStore();
+
 ReactDOM.render(
-  <Provider store={initStore()}>
-    <App />
+  <Provider store={store}>
+    <App user={store.getState('user')}/>
   </Provider>,
   document.getElementById("root")
 );

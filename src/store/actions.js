@@ -1,8 +1,16 @@
-export const AUTH = 'AUTH'
+import axios from 'axios';
 
-export function auth(payload) {
-  return { 
-    type: AUTH,
-    payload
-  }
+export const USER = 'USER';
+
+export function login(payload) {
+    axios.post('http://localhost:7001/login', {
+        username: payload.username,
+        password: payload.password
+    }).then(response => {
+        console.log(response)
+    });
+    return {
+        type: USER,
+
+    }
 }

@@ -1,7 +1,8 @@
 const initialState = {
     user: {
-        name: "",
-        isAuthenticated: false,
+        username: "",
+        email: "",
+        isAuthenticated: false
     }
 }
 
@@ -12,10 +13,15 @@ const CLEAR = (state, action) => {
 
 function reducer(state = initialState, action) {
     switch (action.type) {
-        case 'CLEAR':
-            return CLEAR(state, action);
+        case 'AUTH':
+            return Object.assign({}, 
+                state, 
+                {
+                    user: action.payload
+                });
         default:
             return state;
     }
-  }
+}
+
 export default reducer;

@@ -2,17 +2,14 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-require("dotenv").config();
-const port = process.env.PORT;
-const mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
 const passport = require("passport");
+const app = express();
 
-require("./userModel");
-require("./config/passport");
+require("dotenv").config();
+
 const routes = require("./routes");
 
-const app = express();
+const port = process.env.SERVER_PORT;
 
 app.use(helmet());
 app.use(cors());

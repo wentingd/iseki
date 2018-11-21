@@ -1,50 +1,62 @@
 import React, { Component } from 'react';
-import { Button, TextField, Paper } from '@material-ui/core';
-import { auth } from '../store/actions';
+import { Button, TextField } from '@material-ui/core';
+import { login } from '../store/actions';
 
 class Login extends Component {
 
     constructor(props){
         super(props);
-        this.state={
+        this.state = {
             username:'',
             password:''
         }
     }
 
-    handleClick(e){
-        const apiBaseUrl = process.env.THON_API_BASE;
-        const self = this;
-        let payload = {
-            "email": this.state.username,
-            "password": this.state.password
+    handleClick() {
+        return function(event){
+            let payload = {
+                "username": this.state.username,
+                "password": this.state.password
+            }
+            login(payload);
         }
-        auth(payload);
+    }
+
+    onFieldChange(fieldName) {
+        return function (event) {
+            this.setState({[fieldName]: event.target.value});
         }
+    }
     
     render() {
         return (
-            <Paper>
+            <div>
                 <TextField
-                    hintText="Enter your Username"
-                    floatingLabelText="Username"
-                    onChange = {(event,newValue) => this.setState({username:newValue})}
+                    id="Login-username-input"
+                    label="email"
+                    value={this.state.username}
+                    onChange={this.onFieldChange('username').bind(this)}
+                    margin="normal"
                     />
                 <br/>
                 <TextField
+                    id="Login-password-input"
                     type="password"
-                    hintText="Enter your Password"
-                    floatingLabelText="Password"
-                    onChange = {(event,newValue) => this.setState({password:newValue})}
+                    label="password"
+                    value={this.state.password}
+                    onChange={this.onFieldChange('password').bind(this)}
+                    autoComplete="current-password"
+                    margin="normal"
                     />
                 <br/>
-                <Button label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-            </Paper>
+                <Button
+                    label="Submit"
+                    onClick={this.handleClick().bind(this)}>
+                    submit
+                </Button>
+            </div>
     );
   }
 }
-const style = {
- margin: 15,
-};
 
 export default Login;

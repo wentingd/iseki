@@ -12,14 +12,18 @@
     "helmet": "^3.15.0",
     "mongoose": "^5.3.13",
     "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
     "react-scripts": "2.1.1",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "styled-components": "^4.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/index.js",
+    "start-dev": "nodemon server/index.js",
+    "start-react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -32,5 +36,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
 }

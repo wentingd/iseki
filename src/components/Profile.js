@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { Button, TextField, Paper, Typography } from '@material-ui/core';
-
 
 class Profile extends Component {
     
     constructor(props){
         super(props);
         this.state = {
-            username: 'guest'
+            username: this.props.username
         }
     }
     
     render() {
         return (
-            <Typography>
+            <h2>
                 logged in as : {this.state.username}
-            </Typography>
+            </h2>
         );
     }
 

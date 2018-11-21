@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { pink, red, indigo } from '@material-ui/core/colors';
+import { Paper } from '@material-ui/core';
 import Login from './LogIn';
+import Profile from './Profile';
 import './App.css';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: indigo,
-    secondary: pink,
-    error: red,
-    contrastThreshold: 3,
-    tonalOffset: 0.2,
-  },
-});
-
 class App extends Component {
+  
+  constructor(props){
+    super(props);
+    this.state = {
+      isAuthenticated: this.props.user.isAuthenticated,
+      username: this.props.user.username
+    }
+  };
+
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
         <div className="App">
           <header className="App-header">
-            <Login />
-          </header>
+            {
+              this.state.isAuthenticated ?  
+              <Profile username={this.state.username}/> :
+              <Paper>
+                <Login />
+              </Paper>
+            }
+            </header>
         </div>
-      </MuiThemeProvider>
     );
   }
+
 }
 
 export default App;
