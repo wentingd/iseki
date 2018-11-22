@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { AppBar, IconButton, Button, Toolbar, Typography } from '@material-ui/core';
+import { Grid, AppBar, IconButton, Button, Toolbar, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrain } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTrain } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { logout } from '../store/actions';
 
-const RightPulledButton = styled(Button)`
-    marginLeft: -12,
-    marginRight: 20
+const StyledToolbar = styled(Toolbar)`
+    a {
+        color: #FFF;
+    }
+    a:hover {
+        color: #FFF
+    }
 `
 
 export class Appbar extends Component {
@@ -16,17 +21,31 @@ export class Appbar extends Component {
     render() {
         return (
         <AppBar position="static" color="primary">
-            <Toolbar>
-                <IconButton
-                    color="inherit">
-                    <FontAwesomeIcon icon={faTrain} />
-                </IconButton>
-                <RightPulledButton
-                    color="inherit"
-                    onClick={(e) => this.props.logout()}>
-                        logout
-                </RightPulledButton>
-            </Toolbar>
+            <StyledToolbar>
+                <Grid
+                    justify="space-between"
+                    container
+                    spacing={24}
+                    >
+                    <Grid item>
+                    <Link to='/' >
+                        <IconButton color="inherit">                        
+                            <FontAwesomeIcon icon={faHome} />
+                        </IconButton>
+                    </Link>
+                    <Link to='/trains'>
+                        <IconButton color="inherit">
+                            <FontAwesomeIcon icon={faTrain} />
+                        </IconButton>
+                    </Link>
+                    </Grid>
+                    <Button
+                        color="inherit"
+                        onClick={(e) => this.props.logout()}>
+                            logout
+                    </Button>
+                </Grid>
+            </StyledToolbar>
         </AppBar>
         );
     }
@@ -34,5 +53,5 @@ export class Appbar extends Component {
 }
 
 const mapDispatchToProps = { logout };
-  
+
 export default connect(null, mapDispatchToProps)(Appbar);

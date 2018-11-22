@@ -2,8 +2,10 @@ import * as types from "./constants"
 
 const initialState = {
     user: {
-        username: '',
-        isAuthenticated: false
+        // username: '',
+        // isAuthenticated: false
+        username: 'fake',
+        isAuthenticated: true
     }
 }
 

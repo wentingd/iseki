@@ -1,28 +1,21 @@
 import React from "react"
-import { BrowserRouter, Route, Link } from "react-router-dom"
-import Home from './components/Home'
+import { BrowserRouter, Route } from 'react-router-dom'
+import HomePage from './components/HomePage'
+import TrainsPage from './components/TrainsPage'
+import Appbar from './components/Appbar'
 
 export default (store, history) => {
 
-	// const requireAuth = (nextState, replace, callback) => {
-	// 	const { user: { isAuthenticated } } = store.getState()		
-	// 	if (!isAuthenticated) {
-	// 		// Takes a Location object
-	// 		// https://github.com/mjackson/history/blob/master/docs/Location.md
-	// 		replace({
-	// 			pathname: "/login",
-	// 			state: { nextPathname: nextState.location.pathname }
-	// 		})
-	// 	}
-	// 	callback()
-	// }
-
-	return( 
-		<BrowserRouter>
+	return(
 		<div>
-		  <Route exact path='/' component={Home} />
+			<BrowserRouter>
+				<div>
+					<Appbar />
+					<Route exact path='/' component={HomePage} />
+					<Route exact path='/trains' component={TrainsPage} />
+				</div>
+			</BrowserRouter>
 		</div>
-	  </BrowserRouter>
 	)	
 
 }
