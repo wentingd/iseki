@@ -1,36 +1,47 @@
 import React, { Component } from 'react';
-import { Button, TextField } from '@material-ui/core';
-import { login } from '../store/actions';
+import { Button, TextField, Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { fetchUser, login } from '../store/actions';
+import styled from 'styled-components';
+
+const Wrapper = styled.section`
+  padding: 1.5em;
+  background: papayawhip;
+`;
 
 class Login extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            username:'',
-            password:''
+            username: '',
+            password: ''
         }
     }
 
     handleClick() {
-        return function(event){
+        return async (event) => {
             let payload = {
                 "username": this.state.username,
                 "password": this.state.password
-            }
-            login(payload);
+            };
+            const foundUser = await fetchUser(payload);
+            this.props.login(foundUser);
         }
     }
 
     onFieldChange(fieldName) {
-        return function (event) {
+        return (event) => {
             this.setState({[fieldName]: event.target.value});
         }
     }
     
     render() {
         return (
-            <div>
+            <Wrapper>
+                <Typography variant="h4">
+                    iSeki
+                </Typography>
                 <TextField
                     id="Login-username-input"
                     label="email"
@@ -51,12 +62,15 @@ class Login extends Component {
                 <br/>
                 <Button
                     label="Submit"
+                    color="primary"
                     onClick={this.handleClick().bind(this)}>
                     submit
                 </Button>
-            </div>
+            </Wrapper>
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = { login };
+  
+export default connect(null, mapDispatchToProps)(Login);

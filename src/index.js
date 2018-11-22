@@ -10,7 +10,7 @@ const store = initStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App user={store.getState('user')}/>
+    <App store={store}/>
   </Provider>,
   document.getElementById("root")
 );

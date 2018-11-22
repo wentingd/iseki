@@ -1,25 +1,20 @@
 const express = require('express');
 var passport = require('passport')
-  , LocalStrategy = require('passport-local').Strategy;
+, LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 
-const userlist = process.env.USER_LIST.split(',');
-const passwordlist = process.env.PASSWORD_LIST.split(',');
-
 const isValidUser = (username, password) => {
-	if (userlist.contains(username)) {
-		return password === passwordlist[userlist.indexOf(username)];
-	} else {
-		return false;
+	for (let i=1; i <parseInt(process.env.MAX_USER) ; i++){
+		return process.env['USER_' + i] === username && process.env['PASSWORD_' + i] === password;
 	}
-};
+}
 
 passport.use(new LocalStrategy(
-	function(username, password) {
+	function(username, password, done) {
 		if (!isValidUser(username, password)){
-			return { username: username, msg: 'incorrect user' }
+			return done(null, false)
 		} else {
-			return { username: username, isAuthenticated: true };
+			return done(null, true);
 		}
 	}
   ));
@@ -40,9 +35,13 @@ router.get('/user', (req, res, next) => {
 
 router.post('/login', function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
-		console.log('/login handler', req.body);
-		if (err) { return next(err); }
-		if (!user) { return res.status(500).json({ error: 'User not found.' }); }
+		console.log('/login :: ', req.body);
+		if (err) return next(err)
+		if (!user) {
+			console.log('someone tried to login with unfound user.')
+			return res.status(404).json({ msg: 'User not found.' });
+		}
+		return res.json({ isAuthenticated: user, username: req.body.username })
 	})(req, res, next);
 });
 

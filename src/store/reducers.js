@@ -1,24 +1,20 @@
+import * as types from "./constants"
+
 const initialState = {
     user: {
-        username: "",
-        email: "",
+        username: '',
         isAuthenticated: false
     }
 }
 
-const CLEAR = (state, action) => {
-    const newState = Object.assign({}, initialState);
-    return newState;
-};
-
 function reducer(state = initialState, action) {
     switch (action.type) {
-        case 'AUTH':
-            return Object.assign({}, 
-                state, 
-                {
-                    user: action.payload
-                });
+        case types.USER_LOCAL_LOGIN:
+            return { ...state, user: action.user };
+        case types.USER_LOGOUT:
+            return { ...state, user: action.user };
+        case types.CLEAN_STATE:
+            return initialState;
         default:
             return state;
     }

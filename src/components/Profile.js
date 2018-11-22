@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
+import { Card, Avatar, Typography } from '@material-ui/core';
+import styled from 'styled-components';
+
+const StyledCard = styled(Card)`
+    padding: 1em;
+`
 
 class Profile extends Component {
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            username: this.props.username
-        }
-    }
-    
+
     render() {
         return (
-            <h2>
-                logged in as : {this.state.username}
-            </h2>
+            <StyledCard>
+                <Avatar>
+                    {this.props.username.substring(0,2)}
+                </Avatar>
+                <Typography variant="body2">
+                    logged in as : {this.props.username}
+                </Typography>
+            </StyledCard>
         );
     }
-
-
 }
 
 export default Profile;

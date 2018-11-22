@@ -1,9 +1,8 @@
 import { createStore } from "redux";
 import reducer from "./reducers";
 
-export default function configureStore(preloadedState) {
+export default function configureStore() {
   return createStore(
-    reducer,
-    preloadedState
+    reducer
   );
 }
