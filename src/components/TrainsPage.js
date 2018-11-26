@@ -1,36 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Button, Paper } from '@material-ui/core';
+import { Card, Grid } from '@material-ui/core';
 import styled from 'styled-components'
+import StationsInfoStepper from './StationsInfoStepper';
 
-const mockTrainData = [
-    {name:'tokaidou', stations: [{ name:'totsuka' }, { name:'yokohama' }, { name:'kawasaki' }]},
-    {name:'yokosuka', stations: [{ name:'totsuka' }, { name:'east totsuka' }]},
-    {name:'hakone touzan', stations: [{ name:'odawara' }, { name:'hakone yumoto' }]}
-];
-
-const StyledPaper = styled(Paper)`
-    padding: 2em;
-    background: indigo;
+const StyledCard = styled(Card)`
+    padding: 1em;
+    width: 500px;
 `
 
 export class TrainsPage extends Component {
 
-    lineInfoPaper = (line) => 
-        <StyledPaper>
-            <Typography variant='h3'>{line.name}</Typography>
-            {
-                line.stations.map(station => <Button>{station.name}</Button>)
-            }
-        </StyledPaper>
-
     render() {
+        const allTrainData = this.props.allTrainData ? this.props.allTrainData : null;
         return (
-            mockTrainData.map(
-                line => this.lineInfoPaper(line)
-            )
+            <div style={{ padding: 20 }}>
+            <Grid container spacing={40}>
+                {
+                    allTrainData.map(
+                        (trainline, index) => (
+                            <Grid item key={index}>
+                                <StyledCard>
+                                    <StationsInfoStepper label={trainline.name} steps={trainline.stations}/>
+                                </StyledCard>
+                            </Grid>
+                        )
+                    )
+                }
+            </Grid>
+        </div>
         )
     }
 }
+
+const mapStateToProps = (state, ownProps) => {
+	return {
+        allTrainData: state.allTrainData
+	};
+}
   
-export default connect()(TrainsPage);
+export default connect(mapStateToProps)(TrainsPage);

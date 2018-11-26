@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import Profile from './Profile';
-import StationsInfoCard from './StationsInfoCard';
-import Appbar from './Appbar';
 import { connect } from 'react-redux';
-import { Grid, Typography } from '@material-ui/core';
-
-const mockMyStations = [
-    { name: 'totsuka', fav: true },
-    { name: 'shinagawa' }
-]
+import { Grid } from '@material-ui/core';
+import Profile from './Profile';
+import ItemList from './ItemList';
 
 export class Home extends Component {
 
@@ -20,10 +14,18 @@ export class Home extends Component {
                         <Profile username={this.props.username}/>
                     </Grid>
                     <Grid item>
-                    <StationsInfoCard
-                        label='My Stations'
-                        stations={mockMyStations}
-                        />
+                        <ItemList
+                            label='My Stations'
+                            type="stations"
+                            listContents={this.props.config.stations}
+                            />
+                    </Grid>
+                    <Grid item>
+                        <ItemList
+                            label='My Lines'
+                            type="trainlines"
+                            listContents={this.props.config.trainlines}
+                            />
                     </Grid>
                 </Grid>
             </div>
@@ -33,7 +35,8 @@ export class Home extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		username: state.user.username
+        username: state.user.username,
+        config: state.user.config
 	};
 }
   

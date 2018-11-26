@@ -1,49 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Typography, Button, Paper, Card, List, ListItem, ListItemText, ListItemIcon, ListSubheader } from '@material-ui/core';
+import { Card, List, ListItem, ListItemText, ListSubheader, ListItemIcon } from '@material-ui/core';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const StyledCard = styled(Card)`
-    padding: 2.5em;
+    padding: 2em;
     background: grey;
 `
 
-export class StationsInfoCard extends Component {
+export class listContentsList extends Component {
 
     constructor(props){
         super(props);
         this.state = {
             label: '',
-            stations: []
+            listContents: []
         }
     }
 
     componentDidMount(nextProps){
         this.setState({
             label: this.props.label,
-            stations: this.props.stations
+            listContents: this.props.listContents
         })
+    }
+
+    handleClickFav(item, type){
+        console.log(item, type)
     }
 
     render() {
         return (
             <StyledCard>
-                <Typography component='h4' variant='h4'>
-                    {this.state.label}
-                </Typography>
-                <List>
+                <List subheader={<ListSubheader component="div" color="primary">{this.props.label}</ListSubheader>}>
                     {
-                        this.state.stations.map(
-                            station => 
-                            <ListItem button>
+                        this.state.listContents.map(
+                            (item, index) => 
+                            <ListItem key={index} button>
                                 <ListItemText>
-                                {station.name}
+                                {item.name}
                                 </ListItemText>
                                 {
-                                    station.fav ?
-                                    <ListItemIcon>
+                                    item.fav ?
+                                    <ListItemIcon
+                                        onClick={this.handleClickFav.bind(this, item, this.props.label)}>
                                         <FontAwesomeIcon icon={faStar} />
                                     </ListItemIcon> : null
                                 }
@@ -56,4 +58,4 @@ export class StationsInfoCard extends Component {
     }
 }
   
-export default connect()(StationsInfoCard);
+export default connect()(listContentsList);

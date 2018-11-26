@@ -4,6 +4,22 @@ import { connect } from 'react-redux';
 import Login from './Login';
 import Routes from '../Routes';
 import styled from 'styled-components';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { orange, indigo, red, grey } from '@material-ui/core/colors';
+
+const mainTheme = createMuiTheme({
+  palette: {
+    primary: orange,
+    secondary: grey,
+    error: red,
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
+  },
+  stepper: {
+    iconColor: indigo
+  }
+});
 
 const FullPageWrapper = styled.section`
   min-height: 100vh;
@@ -26,6 +42,7 @@ export class App extends Component {
   render() {
     let isAuthenticated = this.props.user.isAuthenticated;
     return (
+      <MuiThemeProvider theme={mainTheme}>
         <div className="App">
           {
             isAuthenticated ? 
@@ -37,6 +54,7 @@ export class App extends Component {
               </FullPageWrapper>
             }
         </div>
+        </MuiThemeProvider>
     );
   }
 

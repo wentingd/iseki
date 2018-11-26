@@ -1,12 +1,15 @@
 import * as types from "./constants"
+import { mockTrainData, mockUserConfig } from "../test/mockData"
 
 const initialState = {
     user: {
         // username: '',
         // isAuthenticated: false
-        username: 'fake',
-        isAuthenticated: true
-    }
+        username: 'fake user',
+        isAuthenticated: true,
+        config: mockUserConfig
+    },
+    allTrainData: mockTrainData
 }
 
 function reducer(state = initialState, action) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, AppBar, IconButton, Button, Toolbar, Typography } from '@material-ui/core';
+import { Grid, AppBar, IconButton, Button, Toolbar } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
