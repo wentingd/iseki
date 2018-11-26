@@ -1,8 +1,18 @@
 import axios from 'axios';
 import * as types from "./constants"
+import { mockUserConfig } from "../test/mockData"
 
 export const fetchUser = async (payload) => {
     const response = await axios.post('http://localhost:7001/login', payload);
+    if (response.status === 200) {
+        return response.data;
+    } else {
+        return null;
+    }
+}
+
+export const fetchUserConfig = async(payload) => {
+    const response = await axios.post('http://localhost:7001/config', payload);
     if (response.status === 200) {
         return response.data;
     } else {

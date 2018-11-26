@@ -17,14 +17,14 @@ export class Home extends Component {
                         <ItemList
                             label='My Stations'
                             type="stations"
-                            listContents={this.props.config.stations}
+                            listContents={this.props.config.stations ? this.props.config.stations : null}
                             />
                     </Grid>
                     <Grid item>
                         <ItemList
                             label='My Lines'
                             type="trainlines"
-                            listContents={this.props.config.trainlines}
+                            listContents={this.props.config.trainlines ? this.props.config.trainlines : null}
                             />
                     </Grid>
                 </Grid>

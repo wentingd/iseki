@@ -15,13 +15,15 @@ export const mockTrainData = [
 ];
 
 export const mockUserConfig = {
-    stations: [
-        { name: 'totsuka', fav: true },
-        { name: 'shinagawa' }
-    ],
-    trainlines: [
-        { name: 'Tokaidou Main Line', fav: true },
-        { name: 'Shounan-Shinjuku Line' },
-        { name: 'Hakone Touzan Line', fav: true}
-    ]
+    we: {
+        stations: [
+            { name: 'totsuka', fav: true },
+            { name: 'shinagawa' }
+        ],
+        trainlines: [
+            { name: 'Tokaidou Main Line', fav: true },
+            { name: 'Shounan-Shinjuku Line' },
+            { name: 'Hakone Touzan Line', fav: true}
+        ]
+    }
 };
