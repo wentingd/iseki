@@ -2,6 +2,7 @@ const express = require('express');
 var passport = require('passport')
 , LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
+const mockUserConfig = require("../src/test/mockData").mockUserConfig;
 
 const isValidUser = (username, password) => {
 	for (let i=1; i <parseInt(process.env.MAX_USER) ; i++){
@@ -38,12 +39,26 @@ router.post('/login', function(req, res, next) {
 		console.log('/login :: ', req.body);
 		if (err) return next(err)
 		if (!user) {
-			console.log('someone tried to login with unfound user.')
+			console.log('/login :: user unfound')
 			return res.status(404).json({ msg: 'User not found.' });
 		}
 		return res.json({ isAuthenticated: user, username: req.body.username })
 	})(req, res, next);
 });
+
+router.get('/user/:id/config', function(req, res, next) {
+	passport.authenticate('local', function(err, user, info) {
+		console.log('/user/:id/config :: ', req.body);
+		if (err) return next(err)
+		if (!user) {
+			console.log('/config :: user unfound')
+			return res.status(404).json({ msg: 'User not found.' });
+		}
+		console.log(user)
+		let userConfig = mockUserConfig[req.query.id];
+		return res.json({ config: userConfig })
+	})(req, res, next);
+})
 
 // Use this to test that your API is working
 router.get('/ping', (req, res) => {

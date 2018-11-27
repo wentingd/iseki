@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { fetchUser, login } from '../store/actions';
+import { fetchUser, login, getUserConfig } from '../store/actions';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -27,6 +27,8 @@ class Login extends Component {
             };
             const foundUser = await fetchUser(payload);
             this.props.login(foundUser);
+            
+            // this.props.getUserConfig(foundUser);
         }
     }
 
@@ -71,6 +73,6 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = { login };
+const mapDispatchToProps = { login, getUserConfig };
   
 export default connect(null, mapDispatchToProps)(Login);

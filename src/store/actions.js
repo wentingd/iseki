@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as types from "./constants"
-import { mockUserConfig } from "../test/mockData"
 
 export const fetchUser = async (payload) => {
     const response = await axios.post('http://localhost:7001/login', payload);
@@ -33,6 +32,15 @@ export function logout() {
         user: {
             username: '',
             isAuthenticated: false,
+        }
+    }
+}
+
+export function getUserConfig(config) {
+    return {
+        type: types.USER_GET_CONFIG,
+        user: {
+            config: config
         }
     }
 }

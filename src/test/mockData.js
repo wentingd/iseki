@@ -1,4 +1,4 @@
-export const mockTrainData = [
+const mockTrainData = [
     {name:'Tokaido Main Line', stations: [
         { name:'totsuka' },
         { name:'yokohama' },
@@ -14,7 +14,7 @@ export const mockTrainData = [
     ]}
 ];
 
-export const mockUserConfig = {
+const mockUserConfig = {
     we: {
         stations: [
             { name: 'totsuka', fav: true },
@@ -27,3 +27,5 @@ export const mockUserConfig = {
         ]
     }
 };
+
+module.export = { mockTrainData, mockUserConfig }
