@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { fetchUser, login, getUserConfig } from '../store/actions';
+import { fetchUser, login, getUserConfig, fetchUserConfig } from '../store/actions';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -26,9 +26,10 @@ class Login extends Component {
                 "password": this.state.password
             };
             const foundUser = await fetchUser(payload);
-            this.props.login(foundUser);
-            
-            // this.props.getUserConfig(foundUser);
+            if (foundUser) {
+                this.props.login(foundUser);
+                this.props.getUserConfig(await fetchUserConfig(payload))
+            }
         }
     }
 

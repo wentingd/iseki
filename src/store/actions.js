@@ -11,7 +11,8 @@ export const fetchUser = async (payload) => {
 }
 
 export const fetchUserConfig = async(payload) => {
-    const response = await axios.post('http://localhost:7001/config', payload);
+    console.log(payload)
+    const response = await axios.post('http://localhost:7001/user/config', payload);
     if (response.status === 200) {
         return response.data;
     } else {
