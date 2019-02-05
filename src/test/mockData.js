@@ -28,4 +28,7 @@ const mockUserConfig = {
     }
 };
 
-module.export = { mockTrainData, mockUserConfig }
+export {
+    mockTrainData,
+    mockUserConfig
+};

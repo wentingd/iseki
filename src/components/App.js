@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
-import Login from './Login';
-import Routes from '../Routes';
+import LogIn from './LogIn';
+import Routes from '../Routes'
 import styled from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -49,7 +49,7 @@ export class App extends Component {
               <Routes/> :
               <FullPageWrapper>
                 <Paper>
-                  <Login />
+                  <LogIn />
                 </Paper>
               </FullPageWrapper>
             }

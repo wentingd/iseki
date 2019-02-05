@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import configureStore from 'redux-mock-store'
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+const mockStore = configureStore();
+const initialState = {};
+let wrapper;
+
+beforeEach(() => {
+  wrapper = shallow(<App store={mockStore(initialState)} />)
+});
+
+it('should render', () => {
+  expect(wrapper).toMatchSnapshot();
 });
