@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 const StyledCard = styled(Card)`
     padding: 1em;
-`
+`;
 
 class Profile extends Component {
 
-    render() {
-        return (
+  render() {
+    return (
             <StyledCard>
                 <Avatar>
                     {this.props.username.substring(0,2)}
@@ -18,8 +18,8 @@ class Profile extends Component {
                     logged in as : {this.props.username}
                 </Typography>
             </StyledCard>
-        );
-    }
+    );
+  }
 }
 
 export default Profile;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
 import LogIn from './LogIn';
-import Routes from '../Routes'
+import Routes from '../Routes';
 import styled from 'styled-components';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -17,8 +17,8 @@ const mainTheme = createMuiTheme({
     tonalOffset: 0.2,
   },
   stepper: {
-    iconColor: indigo
-  }
+    iconColor: indigo,
+  },
 });
 
 const FullPageWrapper = styled.section`
@@ -62,7 +62,7 @@ export class App extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-      user: state.user
+    user: state.user,
   };
 }
 

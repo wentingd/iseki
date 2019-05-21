@@ -10,61 +10,61 @@ const CenterContents = styled.div`
 
 export class StationsInfoStepper extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            activeStep: null,
-            selected: null
-        }
-    }
-
-    handleClick (index, value, event) {
-        if (this.state.activeStep !== index) {
-            this.setState({
-                activeStep: index,
-                selected: value
-            });
-        } else {
-            this.handleReset();
-        }
+  constructor(props){
+    super(props);
+    this.state = {
+      activeStep: null,
+      selected: null,
     };
+  }
+
+  handleClick (index, value, event) {
+    if (this.state.activeStep !== index) {
+      this.setState({
+        activeStep: index,
+        selected: value,
+      });
+    } else {
+      this.handleReset();
+    }
+  };
 
     handleReset = () => {
-        this.setState({
-            activeStep: null,
-            selected: null
-        });
+      this.setState({
+        activeStep: null,
+        selected: null,
+      });
     };
 
     handleClickNext() {
-        console.log('next!!')
+      console.log('next!!');
     };
     
     render(){
-        const steps = this.props.steps;
-        const activeStep = this.state.activeStep;
-        return(
+      const steps = this.props.steps;
+      const activeStep = this.state.activeStep;
+      return(
             <div>
                 <Typography variant='h4'>{this.props.label}</Typography>
                 <Typography variant='body2'>Click on the train icon where you want to get on</Typography>
                 <Stepper activeStep={activeStep} orientation="vertical">
                     {
                         steps.map((station, index) => {
-                            return (
+                          return (
                                 <Step key={station.name + '-' + index}>
                                 <StepLabel
                                     icon={<IconButton
-                                            color={this.state.activeStep === index ? "primary" : "secondary"}
+                                            color={this.state.activeStep === index ? 'primary' : 'secondary'}
                                                 onClick={this.handleClick.bind(this, index, station.name)}>
                                             <FontAwesomeIcon icon={faTrain} />
                                         </IconButton>}>
-                                    <Typography variant={this.state.activeStep === index ? "h6" : "body1"}>{station.name}</Typography>
+                                    <Typography variant={this.state.activeStep === index ? 'h6' : 'body1'}>{station.name}</Typography>
                                 </StepLabel>
                                 <StepContent>
                                     <Typography variant="caption">(Getting on here)</Typography>
                                 </StepContent>
                                 </Step>
-                                );
+                          );
                         })
                     }
                 </Stepper>
@@ -78,7 +78,7 @@ export class StationsInfoStepper extends Component {
                     </IconButton>
                 </CenterContents>
             </div>
-        )
+      );
     }
 
 }

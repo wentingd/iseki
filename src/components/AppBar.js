@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, AppBar, IconButton, Button, Toolbar } from '@material-ui/core';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faTrain } from '@fortawesome/free-solid-svg-icons';
@@ -14,12 +14,12 @@ const StyledToolbar = styled(Toolbar)`
     a:hover {
         color: #FFF
     }
-`
+`;
 
 export class Appbar extends Component {
     
-    render() {
-        return (
+  render() {
+    return (
         <AppBar position="static" color="primary">
             <StyledToolbar>
                 <Grid
@@ -47,8 +47,8 @@ export class Appbar extends Component {
                 </Grid>
             </StyledToolbar>
         </AppBar>
-        );
-    }
+    );
+  }
 
 }
 

@@ -1,14 +1,12 @@
+require("dotenv").config();
+
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const app = express();
-
-require("dotenv").config();
-
 const routes = require("./routes");
-
 const port = process.env.SERVER_PORT;
 
 app.use(helmet());

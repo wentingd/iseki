@@ -2,7 +2,7 @@ const express = require('express');
 var passport = require('passport')
 , LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
-const mockUserConfig = require("../src/test/mockData").mockUserConfig;
+const mockUserConfig = require("../src/mockData").mockUserConfig;
 
 const isValidUser = (username, password) => {
 	for (let i=1; i <parseInt(process.env.MAX_USER) ; i++){

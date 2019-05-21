@@ -8,36 +8,36 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 const StyledCard = styled(Card)`
     padding: 2em;
     background: grey;
-`
+`;
 
 export class listContentsList extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            label: '',
-            listContents: []
-        }
-    }
+  constructor(props){
+    super(props);
+    this.state = {
+      label: '',
+      listContents: [],
+    };
+  }
 
-    componentDidMount(nextProps){
-        this.setState({
-            label: this.props.label,
-            listContents: this.props.listContents
-        })
-    }
+  componentDidMount(nextProps){
+    this.setState({
+      label: this.props.label,
+      listContents: this.props.listContents,
+    });
+  }
 
-    handleClickFav(item, type){
-        console.log(item, type)
-    }
+  handleClickFav(item, type){
+    console.log(item, type);
+  }
 
-    render() {
-        return (
+  render() {
+    return (
             <StyledCard>
                 <List subheader={<ListSubheader component="div" color="primary">{this.props.label}</ListSubheader>}>
                     {
                         this.state.listContents.map(
-                            (item, index) => 
+                          (item, index) => 
                             <ListItem key={index} button>
                                 <ListItemText>
                                 {item.name}
@@ -49,13 +49,13 @@ export class listContentsList extends Component {
                                         <FontAwesomeIcon icon={faStar} />
                                     </ListItemIcon> : null
                                 }
-                            </ListItem>
+                            </ListItem>,
                         )
                     }
                 </List>
             </StyledCard>
-        )
-    }
+    );
+  }
 }
   
 export default connect()(listContentsList);

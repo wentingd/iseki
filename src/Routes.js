@@ -1,13 +1,13 @@
-import React from "react"
-import { BrowserRouter, Route } from 'react-router-dom'
-import HomePage from './components/HomePage'
-import TrainsPage from './components/TrainsPage'
-import TestPage from './components/TestPage'
-import AppBar from './components/AppBar'
+import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import TrainsPage from './components/TrainsPage';
+import TestPage from './components/TestPage';
+import AppBar from './components/AppBar';
 
 export default (store, history) => {
 
-	return(
+  return(
 		<div>
 			<BrowserRouter>
 				<div>
@@ -18,6 +18,6 @@ export default (store, history) => {
 				</div>
 			</BrowserRouter>
 		</div>
-	)	
+  );	
 
-}
+};

@@ -11,36 +11,36 @@ const Wrapper = styled.section`
 
 class Login extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            username: '',
-            password: ''
-        }
-    }
+  constructor(props){
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
 
-    handleClick() {
-        return async (event) => {
-            let payload = {
-                "username": this.state.username,
-                "password": this.state.password
-            };
-            const foundUser = await fetchUser(payload);
-            if (foundUser) {
-                this.props.login(foundUser);
-                this.props.getUserConfig(await fetchUserConfig(payload))
-            }
-        }
-    }
+  handleClick() {
+    return async (event) => {
+      let payload = {
+        'username': this.state.username,
+        'password': this.state.password,
+      };
+      const foundUser = await fetchUser(payload);
+      if (foundUser) {
+        this.props.login(foundUser);
+        this.props.getUserConfig(await fetchUserConfig(payload));
+      }
+    };
+  }
 
-    onFieldChange(fieldName) {
-        return (event) => {
-            this.setState({[fieldName]: event.target.value});
-        }
-    }
+  onFieldChange(fieldName) {
+    return (event) => {
+      this.setState({[fieldName]: event.target.value});
+    };
+  }
     
-    render() {
-        return (
+  render() {
+    return (
             <Wrapper>
                 <Typography variant="h4">
                     iSeki

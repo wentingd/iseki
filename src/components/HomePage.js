@@ -6,8 +6,8 @@ import ItemList from './ItemList';
 
 export class Home extends Component {
 
-    render() {
-        return (
+  render() {
+    return (
             <div style={{ padding: 20 }}>
                 <Grid container spacing={40}>
                     <Grid item>
@@ -29,15 +29,15 @@ export class Home extends Component {
                     </Grid>
                 </Grid>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
-	return {
-        username: state.user.username,
-        config: state.user.config
-	};
-}
+  return {
+    username: state.user.username,
+    config: state.user.config,
+  };
+};
   
 export default connect(mapStateToProps)(Home);
