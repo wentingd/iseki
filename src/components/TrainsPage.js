@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Card, Grid } from '@material-ui/core';
 import styled from 'styled-components';
@@ -9,28 +9,22 @@ const StyledCard = styled(Card)`
     width: 500px;
 `;
 
-export class TrainsPage extends Component {
-
-  render() {
-    const allTrainData = this.props.allTrainData ? this.props.allTrainData : null;
-    return (
-            <div style={{ padding: 20 }}>
-            <Grid container spacing={40}>
-                {
-                    allTrainData.map(
-                      (trainline, index) => (
-                            <Grid item key={index}>
-                                <StyledCard>
-                                    <StationsInfoStepper label={trainline.name} steps={trainline.stations}/>
-                                </StyledCard>
-                            </Grid>
-                      ),
-                    )
-                }
-            </Grid>
-        </div>
-    );
-  }
+function TrainsPage(props) {
+  const allTrainData = props.allTrainData || [];
+  return (
+          <div style={{ padding: 20 }}>
+          <Grid container spacing={2}>
+              {
+                allTrainData.map((trainline, index) => (
+                  <Grid item key={index}>
+                    <StyledCard>
+                      <StationsInfoStepper label={trainline.name} steps={trainline.stations}/>
+                    </StyledCard>
+                  </Grid>))
+              }
+          </Grid>
+      </div>
+  );
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -38,5 +32,5 @@ const mapStateToProps = (state, ownProps) => {
     allTrainData: state.allTrainData,
   };
 };
-  
+
 export default connect(mapStateToProps)(TrainsPage);

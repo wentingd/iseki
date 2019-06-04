@@ -1,26 +1,26 @@
 import axios from 'axios';
 import * as types from './constants';
 
-export const fetchUser = async (payload) => {
-  const response = await axios.post('http://localhost:7001/login', payload);
+const baseUrl = 'http://localhost:7001';
+
+export const fetchUser = async(payload) => {
+  const response = await axios.post(`${baseUrl}/login`, payload);
   if (response.status === 200) {
     return response.data;
-  } else {
-    return null;
   }
+  return null;
 };
 
 export const fetchUserConfig = async(payload) => {
   console.log(payload);
-  const response = await axios.post('http://localhost:7001/user/config', payload);
+  const response = await axios.post(`${baseUrl}/user/config`, payload);
   if (response.status === 200) {
     return response.data;
-  } else {
-    return null;
   }
+  return null;
 };
 
-export function login (authenticatedUser) {
+export function login(authenticatedUser) {
   return {
     type: types.USER_LOCAL_LOGIN,
     user: authenticatedUser,
@@ -41,7 +41,7 @@ export function getUserConfig(config) {
   return {
     type: types.USER_GET_CONFIG,
     user: {
-      config: config,
+      config,
     },
   };
 }

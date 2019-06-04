@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
-import LogIn from './LogIn';
-import Routes from '../Routes';
 import styled from 'styled-components';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { orange, indigo, red, grey } from '@material-ui/core/colors';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {
+  orange, indigo, red, grey,
+} from '@material-ui/core/colors';
+import LogIn from './LogIn';
+import Routes from './Routes';
 
 const mainTheme = createMuiTheme({
   palette: {
@@ -31,33 +32,23 @@ const FullPageWrapper = styled.section`
   color: white;
 `;
 
-export class App extends Component {
-  
-  constructor(props){
-    super(props);
-    this.state = {
-    };
-  };
-
-  render() {
-    let isAuthenticated = this.props.user.isAuthenticated;
-    return (
-      <MuiThemeProvider theme={mainTheme}>
-        <div className="App">
-          {
-            isAuthenticated ? 
-              <Routes/> :
-              <FullPageWrapper>
+function App(props) {
+  const { isAuthenticated } = props.user;
+  return (
+    <MuiThemeProvider theme={mainTheme}>
+      <div className="App">
+        {
+          isAuthenticated
+            ? <Routes/>
+            : <FullPageWrapper>
                 <Paper>
                   <LogIn />
                 </Paper>
               </FullPageWrapper>
-            }
-        </div>
-        </MuiThemeProvider>
-    );
-  }
-
+          }
+      </div>
+      </MuiThemeProvider>
+  );
 }
 
 function mapStateToProps(state, ownProps) {

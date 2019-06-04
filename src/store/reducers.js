@@ -3,12 +3,12 @@ import { mockTrainData, mockUserConfig } from '../mockData';
 
 const initialState = {
   user: {
-    // username: '',
-    // isAuthenticated: false,
-    // config: null,
-    username: 'we',
-    isAuthenticated: true,
-    config: mockUserConfig.we,
+    username: '',
+    isAuthenticated: false,
+    config: null,
+    // username: 'we',
+    // isAuthenticated: true,
+    // config: mockUserConfig.we,
   },
   allTrainData: mockTrainData,
 };

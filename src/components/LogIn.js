@@ -1,79 +1,75 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { fetchUser, login, getUserConfig, fetchUserConfig } from '../store/actions';
 import styled from 'styled-components';
+import {
+  fetchUser, login, getUserConfig, fetchUserConfig,
+} from '../store/actions';
 
 const Wrapper = styled.section`
   padding: 1.5em;
   background: papayawhip;
 `;
 
-class Login extends Component {
+function Login(props) {
+  const [state, setState] = useState({
+    username: '',
+    password: '',
+  });
 
-  constructor(props){
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
+  const handleClick = async(e) => {
+    const payload = {
+      username: state.username,
+      password: state.password,
     };
-  }
+    console.log(payload);
+    const foundUser = await fetchUser(payload);
+    if (foundUser) {
+      props.login(foundUser);
+      props.getUserConfig(await fetchUserConfig(payload));
+    }
+  };
 
-  handleClick() {
-    return async (event) => {
-      let payload = {
-        'username': this.state.username,
-        'password': this.state.password,
-      };
-      const foundUser = await fetchUser(payload);
-      if (foundUser) {
-        this.props.login(foundUser);
-        this.props.getUserConfig(await fetchUserConfig(payload));
-      }
-    };
-  }
+  const onFieldChange = (fieldName) => (e) => {
+    setState({
+      ...state,
+      [fieldName]: e.target.value,
+    });
+  };
 
-  onFieldChange(fieldName) {
-    return (event) => {
-      this.setState({[fieldName]: event.target.value});
-    };
-  }
-    
-  render() {
-    return (
-            <Wrapper>
-                <Typography variant="h4">
-                    iSeki
-                </Typography>
-                <TextField
-                    id="Login-username-input"
-                    label="email"
-                    value={this.state.username}
-                    onChange={this.onFieldChange('username').bind(this)}
-                    margin="normal"
-                    />
-                <br/>
-                <TextField
-                    id="Login-password-input"
-                    type="password"
-                    label="password"
-                    value={this.state.password}
-                    onChange={this.onFieldChange('password').bind(this)}
-                    autoComplete="current-password"
-                    margin="normal"
-                    />
-                <br/>
-                <Button
-                    label="Submit"
-                    color="primary"
-                    onClick={this.handleClick().bind(this)}>
-                    submit
-                </Button>
-            </Wrapper>
-    );
-  }
+  return (
+      <Wrapper>
+          <Typography variant="h4">
+            iSeki
+          </Typography>
+          <TextField
+            id="Login-username-input"
+            label="email"
+            value={state.username}
+            onChange={onFieldChange('username')}
+            margin="normal"
+            />
+          <br/>
+          <TextField
+            id="Login-password-input"
+            type="password"
+            label="password"
+            value={state.password}
+            onChange={onFieldChange('password')}
+            autoComplete="current-password"
+            margin="normal"
+            />
+          <br/>
+          <Button
+            label="Submit"
+            color="primary"
+            onClick={handleClick}>
+            submit
+        </Button>
+      </Wrapper>
+  );
 }
 
 const mapDispatchToProps = { login, getUserConfig };
-  
+
 export default connect(null, mapDispatchToProps)(Login);
