@@ -1,14 +1,21 @@
 import * as types from './constants';
 import { mockTrainData, mockUserConfig } from '../mockData';
 
+const getUserInitialState = (email) => {
+  if (process.env.USE_MOCK !== true) {
+    // TODO: fetch user config from API
+  }
+  return mockUserConfig[email];
+};
+
 const initialState = {
   user: {
-    username: '',
-    isAuthenticated: false,
-    config: null,
-    // username: 'we',
-    // isAuthenticated: true,
-    // config: mockUserConfig.we,
+    // username: '',
+    // isAuthenticated: false,
+    // config: null,
+    username: 'we',
+    isAuthenticated: true,
+    config: mockUserConfig.we,
   },
   allTrainData: mockTrainData,
 };

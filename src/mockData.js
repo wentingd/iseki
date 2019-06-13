@@ -25,6 +25,7 @@ const mockTrainData = [
 
 const mockUserConfig = {
   we: {
+    password: 'we',
     stations: [
       { name: 'totsuka', fav: true },
       { name: 'shinagawa' },
@@ -37,7 +38,7 @@ const mockUserConfig = {
   },
 };
 
-export {
+module.exports = {
   mockTrainData,
   mockUserConfig,
 };

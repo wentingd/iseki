@@ -15,14 +15,14 @@ function HomePage(props) {
                 <ItemList
                   label='My Stations'
                   type='stations'
-                  listContents={props.config.stations ? props.config.stations : null}
+                  listContents={props.config ? props.config.stations || null : null}
                   />
             </Grid>
             <Grid item>
                 <ItemList
                   label='My Lines'
                   type='trainlines'
-                  listContents={props.config.trainlines ? props.config.trainlines : null}
+                  listContents={props.config ? props.config.trainlines || null : null}
                   />
             </Grid>
         </Grid>

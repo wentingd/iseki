@@ -1,10 +1,8 @@
 import axios from 'axios';
 import * as types from './constants';
 
-const baseUrl = 'http://localhost:7001';
-
 export const fetchUser = async(payload) => {
-  const response = await axios.post(`${baseUrl}/login`, payload);
+  const response = await axios.post('login', payload);
   if (response.status === 200) {
     return response.data;
   }
@@ -12,8 +10,7 @@ export const fetchUser = async(payload) => {
 };
 
 export const fetchUserConfig = async(payload) => {
-  console.log(payload);
-  const response = await axios.post(`${baseUrl}/user/config`, payload);
+  const response = await axios.post('user/config', payload);
   if (response.status === 200) {
     return response.data;
   }
@@ -32,6 +29,7 @@ export function logout() {
     type: types.USER_LOGOUT,
     user: {
       username: '',
+      email: '',
       isAuthenticated: false,
     },
   };

@@ -22,7 +22,6 @@ function Login(props) {
       username: state.username,
       password: state.password,
     };
-    console.log(payload);
     const foundUser = await fetchUser(payload);
     if (foundUser) {
       props.login(foundUser);
