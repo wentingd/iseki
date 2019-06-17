@@ -2,15 +2,16 @@ import axios from 'axios';
 import * as types from './constants';
 
 export const fetchUser = async(payload) => {
-  const response = await axios.post('login', payload);
+  const response = await axios.post('/user/login', payload);
+  console.log(response.status);
   if (response.status === 200) {
     return response.data;
   }
   return null;
 };
 
-export const fetchUserConfig = async(payload) => {
-  const response = await axios.post('user/config', payload);
+export const fetchUserConfig = async(id) => {
+  const response = await axios.get('user', id);
   if (response.status === 200) {
     return response.data;
   }
@@ -18,6 +19,7 @@ export const fetchUserConfig = async(payload) => {
 };
 
 export function login(authenticatedUser) {
+  console.log(authenticatedUser);
   return {
     type: types.USER_LOCAL_LOGIN,
     user: authenticatedUser,
@@ -28,7 +30,6 @@ export function logout() {
   return {
     type: types.USER_LOGOUT,
     user: {
-      username: '',
       email: '',
       isAuthenticated: false,
     },

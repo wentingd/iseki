@@ -9,22 +9,28 @@ function HomePage(props) {
     <div style={{ padding: 20 }}>
         <Grid container spacing={3}>
             <Grid item>
-                <Profile username={props.username}/>
+                <Profile email={props.email}/>
             </Grid>
-            <Grid item>
-                <ItemList
-                  label='My Stations'
-                  type='stations'
-                  listContents={props.config ? props.config.stations || null : null}
-                  />
-            </Grid>
-            <Grid item>
-                <ItemList
-                  label='My Lines'
-                  type='trainlines'
-                  listContents={props.config ? props.config.trainlines || null : null}
-                  />
-            </Grid>
+            {
+              props.config
+                ? <React.Fragment>
+                <Grid item>
+                    <ItemList
+                      label='My Stations'
+                      type='stations'
+                      listContents={props.config.stations || null}
+                      />
+                  </Grid>
+                  <Grid item>
+                    <ItemList
+                      label='My Lines'
+                      type='trainlines'
+                      listContents={props.config.trainlines || null}
+                      />
+                  </Grid>
+                  </React.Fragment>
+                : null
+            }
         </Grid>
     </div>
   );
@@ -32,7 +38,7 @@ function HomePage(props) {
 
 const mapStateToProps = (state) => {
   return {
-    username: state.user.username,
+    email: state.user.email,
     config: state.user.config,
   };
 };

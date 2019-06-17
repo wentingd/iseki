@@ -1,26 +1,19 @@
 import * as types from './constants';
-import { mockTrainData, mockUserConfig } from '../mockData';
-
-const getUserInitialState = (email) => {
-  if (process.env.USE_MOCK !== true) {
-    // TODO: fetch user config from API
-  }
-  return mockUserConfig[email];
-};
+import { mockTrainData } from '../mockData';
 
 const initialState = {
   user: {
-    // username: '',
-    // isAuthenticated: false,
-    // config: null,
-    username: 'we',
-    isAuthenticated: true,
-    config: mockUserConfig.we,
+    email: '',
+    isAuthenticated: false,
+    config: null,
+    // email: 'we',
+    // isAuthenticated: true,
+    // config: mockUserConfig.we,
   },
   allTrainData: mockTrainData,
 };
 
-function reducer(state = initialState, action) {
+function combined(state = initialState, action) {
   switch (action.type) {
     case types.USER_LOCAL_LOGIN:
       return { ...state, user: action.user };
@@ -35,4 +28,4 @@ function reducer(state = initialState, action) {
   }
 }
 
-export default reducer;
+export default combined;

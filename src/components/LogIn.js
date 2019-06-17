@@ -13,19 +13,21 @@ const Wrapper = styled.section`
 
 function Login(props) {
   const [state, setState] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
-  const handleClick = async(e) => {
+  const handleClick = async() => {
     const payload = {
-      username: state.username,
+      email: state.email,
       password: state.password,
     };
+    console.log(payload);
     const foundUser = await fetchUser(payload);
     if (foundUser) {
+      console.log(foundUser);
       props.login(foundUser);
-      props.getUserConfig(await fetchUserConfig(payload));
+      // props.getUserConfig(await fetchUserConfig(payload));
     }
   };
 
@@ -42,10 +44,10 @@ function Login(props) {
             iSeki
           </Typography>
           <TextField
-            id="Login-username-input"
+            id="Login-email-input"
             label="email"
-            value={state.username}
-            onChange={onFieldChange('username')}
+            value={state.email}
+            onChange={onFieldChange('email')}
             margin="normal"
             />
           <br/>
