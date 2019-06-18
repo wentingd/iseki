@@ -7,12 +7,10 @@ const StyledCard = styled(Card)`
 `;
 
 function Profile(props) {
-  console.log(props);
   return (
     <StyledCard>
         <Avatar>
-          user
-            {/* {props.email ? 'lala' : props.email.substring(0, 2)} */}
+          {props.email ? props.email.substring(0, 2) : 'user'}
         </Avatar>
         <Typography variant="body2">
             Logged in as : {props.email}

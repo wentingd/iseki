@@ -11,26 +11,22 @@ function HomePage(props) {
             <Grid item>
                 <Profile email={props.email}/>
             </Grid>
-            {
-              props.config
-                ? <React.Fragment>
+            <React.Fragment>
+              <Grid item>
+                <ItemList
+                  label='My Stations'
+                  type='stations'
+                  listContents={props.config ? props.config.stations : []}
+                  />
+                </Grid>
                 <Grid item>
-                    <ItemList
-                      label='My Stations'
-                      type='stations'
-                      listContents={props.config.stations || null}
-                      />
-                  </Grid>
-                  <Grid item>
-                    <ItemList
-                      label='My Lines'
-                      type='trainlines'
-                      listContents={props.config.trainlines || null}
-                      />
-                  </Grid>
-                  </React.Fragment>
-                : null
-            }
+                  <ItemList
+                    label='My Lines'
+                    type='trainlines'
+                    listContents={props.config ? props.config.trainlines : []}
+                    />
+                </Grid>
+              </React.Fragment>
         </Grid>
     </div>
   );

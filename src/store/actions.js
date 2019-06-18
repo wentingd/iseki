@@ -3,7 +3,6 @@ import * as types from './constants';
 
 export const fetchUser = async(payload) => {
   const response = await axios.post('/user/login', payload);
-  console.log(response.status);
   if (response.status === 200) {
     return response.data;
   }
@@ -11,18 +10,26 @@ export const fetchUser = async(payload) => {
 };
 
 export const fetchUserConfig = async(id) => {
-  const response = await axios.get('user', id);
+  const response = await axios.get(`/user/id/${id}`);
   if (response.status === 200) {
     return response.data;
   }
   return null;
 };
 
-export function login(authenticatedUser) {
-  console.log(authenticatedUser);
+export function login(fetchedUser) {
   return {
     type: types.USER_LOCAL_LOGIN,
-    user: authenticatedUser,
+    user: fetchedUser,
+  };
+}
+
+export function getUserConfig(config) {
+  return {
+    type: types.USER_GET_CONFIG,
+    user: {
+      config,
+    },
   };
 }
 
@@ -32,15 +39,8 @@ export function logout() {
     user: {
       email: '',
       isAuthenticated: false,
-    },
-  };
-}
-
-export function getUserConfig(config) {
-  return {
-    type: types.USER_GET_CONFIG,
-    user: {
-      config,
+      token: '',
+      config: { trains: [], stations: [] },
     },
   };
 }

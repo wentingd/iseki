@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Tokaido Main Line",
+    "stations": [
+      { "name" : "totsuka" },
+      { "name" : "yokohama" },
+      { "name" : "kawasaki" },
+      { "name" : "shinagawa" }]
+  },
+  {
+    "name": "Yokosuka Line",
+    "stations": [
+      { "name": "totsuka" },
+      { "name": "east totsuka" }
+    ]
+  },
+  {
+    "name": "Hakone Tozan Line",
+    "stations": [
+      { "name": "odawara" },
+      { "name": "hakone yumoto" }
+    ]
+  }
+]

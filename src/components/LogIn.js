@@ -18,16 +18,10 @@ function Login(props) {
   });
 
   const handleClick = async() => {
-    const payload = {
-      email: state.email,
-      password: state.password,
-    };
-    console.log(payload);
-    const foundUser = await fetchUser(payload);
-    if (foundUser) {
-      console.log(foundUser);
-      props.login(foundUser);
-      // props.getUserConfig(await fetchUserConfig(payload));
+    const found = await fetchUser({ ...state });
+    if (found) {
+      props.login(found);
+      props.getUserConfig(await fetchUserConfig(found.id));
     }
   };
 
