@@ -3,7 +3,6 @@ import {
   Stepper, Step, StepLabel, StepContent, Typography, IconButton,
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrain, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 const CenterContents = styled.div`
@@ -12,65 +11,137 @@ const CenterContents = styled.div`
 
 function StationsInfoStepper(props) {
   const [state, setState] = useState({
-    activeStep: null,
-    selected: null,
+    showNext: false,
+    activeStepStart: null,
+    selectedStart: null,
+    selectedEnd: null,
+    activeStepEnd: null,
   });
 
-  const handleClick = (index, value) => {
-    if (state.activeStep !== index) {
+  const handleClickStart = (index, value) => {
+    if (state.activeStepStart !== index) {
       setState({
-        activeStep: index,
-        selected: value,
+        ...state,
+        activeStepStart: index,
+        selectedStart: value,
       });
     } else {
-      handleReset();
+      handleReset('start');
     }
   };
 
-  const handleReset = () => {
-    setState({
-      activeStep: null,
-      selected: null,
-    });
+  const handleClickEnd = (index, value) => {
+    if (state.activeStepEnd !== index) {
+      setState({
+        ...state,
+        activeStepEnd: index,
+        selectedEnd: value,
+      });
+    } else {
+      handleReset('end');
+    }
   };
 
   const handleClickNext = () => {
-    console.log('next!!');
+    setState({
+      ...state,
+      showNext: true,
+    });
+  };
+
+  const handleClickSubmit = () => {
+    console.log('submit to backend');
+  };
+
+  const handleReset = (which) => {
+    if (which === 'start') {
+      setState({
+        ...state,
+        activeStepStart: null,
+        selectedStart: null,
+      });
+    }
+    if (which === 'end') {
+      setState({
+        ...state,
+        selectedEnd: null,
+        activeStepEnd: null,
+      });
+    }
   };
 
   return (
     <React.Fragment>
         <Typography variant='h4'>{props.label}</Typography>
-        <Typography variant='caption'>Click on the train icon where you want to get on</Typography>
-        <Stepper activeStep={state.activeStep} orientation="vertical">
-            {
-              props.steps.map((station, index) => {
-                return (
-                  <Step key={`${station.name}-${index}`}>
-                  <StepLabel
-                      icon={<IconButton
-                              color={state.activeStep === index ? 'primary' : 'secondary'}
-                                  onClick={handleClick.bind(this, index, station.name)}>
-                              <FontAwesomeIcon icon={faTrain} />
-                          </IconButton>}>
-                      <Typography variant={state.activeStep === index ? 'h6' : 'body1'}>{station.name}</Typography>
-                  </StepLabel>
-                  <StepContent>
-                      <Typography variant="caption">(Getting on here)</Typography>
-                  </StepContent>
-                  </Step>
-                );
-              })
-            }
-        </Stepper>
+        <Typography variant='caption'>Click on the train icon to pick a station</Typography>
+        {
+          state.showNext
+            ? (<Stepper activeStep={state.activeStepEnd} orientation="vertical">
+                {
+                  props.steps.map((station, index) => {
+                    return (
+                      <Step key={`${station.name}-${index}`}>
+                        <StepLabel
+                            icon={<IconButton
+                                      color={state.activeStepEnd === index ? 'secondary' : 'default'}
+                                      onClick={handleClickEnd.bind(this, index, station.name)}>
+                                    <FontAwesomeIcon icon={'train'} />
+                                  </IconButton>}>
+                            <Typography variant={state.activeStepEnd === index ? 'h6' : 'body1'}>
+                              {station.name}
+                            </Typography>
+                        </StepLabel>
+                        <StepContent>
+                            <Typography variant="caption">(Getting off here)</Typography>
+                        </StepContent>
+                      </Step>
+                    );
+                  })
+                }
+            </Stepper>)
+            : (<Stepper activeStep={state.activeStepStart} orientation="vertical">
+                {
+                  props.steps.map((station, index) => {
+                    return (
+                      <Step key={`${station.name}-${index}`}>
+                        <StepLabel
+                            icon={<IconButton
+                                    color={state.activeStepStart === index ? 'primary' : 'default'}
+                                      onClick={handleClickStart.bind(this, index, station.name)}>
+                                    <FontAwesomeIcon icon='train' />
+                                  </IconButton>}>
+                            <Typography variant={state.activeStepStart === index ? 'h6' : 'body1'}>
+                              {station.name}
+                            </Typography>
+                        </StepLabel>
+                        <StepContent>
+                            <Typography variant="caption">(Getting on here)</Typography>
+                        </StepContent>
+                      </Step>
+                    );
+                  })
+                }
+            </Stepper>
+            )
+        }
         <CenterContents>
-            <IconButton
-                color="primary"
-                disabled={state.selected === null}
-                onClick={handleClickNext}>
-            <FontAwesomeIcon
-                icon={faAngleDoubleRight}/>
-            </IconButton>
+          <Typography>Start: {state.selectedStart}</Typography>
+          <Typography>End: {state.selectedEnd}</Typography>
+          {
+            state.showNext
+              ? <IconButton
+                  color='secondary'
+                  disabled={state.selectedEnd === null}
+                  onClick={handleClickSubmit}>
+                  <FontAwesomeIcon icon={'angle-double-right'}/>
+                </IconButton>
+              : <IconButton
+                  color='primary'
+                  disabled={state.selectedStart === null}
+                  onClick={handleClickNext}>
+                  <FontAwesomeIcon icon={'angle-double-right'}/>
+                </IconButton>
+          }
         </CenterContents>
     </React.Fragment>
   );

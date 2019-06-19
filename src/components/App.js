@@ -4,16 +4,26 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
-  orange, indigo, red, grey,
+  orange, blue, indigo, red, grey,
 } from '@material-ui/core/colors';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee,
+} from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import Routes from './Routes';
+
+library.add(
+  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee,
+);
 
 const mainTheme = createMuiTheme({
   palette: {
     primary: orange,
-    secondary: grey,
+    secondary: blue,
+    action: red,
     error: red,
+    disabled: grey,
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
