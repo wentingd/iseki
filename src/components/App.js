@@ -27,9 +27,6 @@ const mainTheme = createMuiTheme({
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
-  stepper: {
-    iconColor: indigo,
-  },
 });
 
 const FullPageWrapper = styled.section`

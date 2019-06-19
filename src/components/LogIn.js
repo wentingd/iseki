@@ -7,7 +7,7 @@ import {
 } from '../store/actions';
 
 const Wrapper = styled.section`
-  padding: 1.5em;
+  padding: 2em;
   background: papayawhip;
 `;
 

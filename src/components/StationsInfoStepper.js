@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Stepper, Step, StepLabel, StepContent, Typography, IconButton,
+  Stepper, Step, StepLabel, StepContent, Typography, IconButton, Grid,
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
@@ -13,9 +13,9 @@ function StationsInfoStepper(props) {
   const [state, setState] = useState({
     showNext: false,
     activeStepStart: null,
-    selectedStart: null,
-    selectedEnd: null,
     activeStepEnd: null,
+    startStationName: null,
+    endStationName: null,
   });
 
   const handleClickStart = (index, value) => {
@@ -23,7 +23,7 @@ function StationsInfoStepper(props) {
       setState({
         ...state,
         activeStepStart: index,
-        selectedStart: value,
+        startStationName: value,
       });
     } else {
       handleReset('start');
@@ -35,7 +35,7 @@ function StationsInfoStepper(props) {
       setState({
         ...state,
         activeStepEnd: index,
-        selectedEnd: value,
+        endStationName: value,
       });
     } else {
       handleReset('end');
@@ -58,13 +58,13 @@ function StationsInfoStepper(props) {
       setState({
         ...state,
         activeStepStart: null,
-        selectedStart: null,
+        startStationName: null,
       });
     }
     if (which === 'end') {
       setState({
         ...state,
-        selectedEnd: null,
+        endStationName: null,
         activeStepEnd: null,
       });
     }
@@ -83,13 +83,16 @@ function StationsInfoStepper(props) {
                       <Step key={`${station.name}-${index}`}>
                         <StepLabel
                             icon={<IconButton
-                                      color={state.activeStepEnd === index ? 'secondary' : 'default'}
-                                      onClick={handleClickEnd.bind(this, index, station.name)}>
+                                    color={state.activeStepEnd === index ? 'secondary' : 'default'}
+                                    onClick={handleClickEnd.bind(this, index, station.name)}
+                                    disabled={state.activeStepStart === index}
+                                  >
                                     <FontAwesomeIcon icon={'train'} />
                                   </IconButton>}>
-                            <Typography variant={state.activeStepEnd === index ? 'h6' : 'body1'}>
+                            <Typography variant={state.activeStepEnd === index ? 'h5' : 'body1'}>
                               {station.name}
                             </Typography>
+                            {state.activeStepStart === index ? '(start)' : null}
                         </StepLabel>
                         <StepContent>
                             <Typography variant="caption">(Getting off here)</Typography>
@@ -125,23 +128,33 @@ function StationsInfoStepper(props) {
             )
         }
         <CenterContents>
-          <Typography>Start: {state.selectedStart}</Typography>
-          <Typography>End: {state.selectedEnd}</Typography>
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
           {
             state.showNext
               ? <IconButton
                   color='secondary'
-                  disabled={state.selectedEnd === null}
+                  disabled={state.endStationName === null}
                   onClick={handleClickSubmit}>
                   <FontAwesomeIcon icon={'angle-double-right'}/>
                 </IconButton>
               : <IconButton
                   color='primary'
-                  disabled={state.selectedStart === null}
+                  disabled={state.startStationName === null}
                   onClick={handleClickNext}>
                   <FontAwesomeIcon icon={'angle-double-right'}/>
                 </IconButton>
           }
+          </Grid>
+            <Grid item xs={6}>
+              <Typography variant='h6'>Start</Typography>
+              <Typography variant='body1'>{state.startStationName}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant='h6'>End</Typography>
+              <Typography variant='body1'>{state.endStationName}</Typography>
+            </Grid>
+          </Grid>
         </CenterContents>
     </React.Fragment>
   );
