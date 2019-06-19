@@ -8,13 +8,13 @@ import {
 } from '@material-ui/core/colors';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee,
+  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import Routes from './Routes';
 
 library.add(
-  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee,
+  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar,
 );
 
 const mainTheme = createMuiTheme({
@@ -37,6 +37,8 @@ const FullPageWrapper = styled.section`
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-color: #dbe3e5;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='10' viewBox='0 0 20 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16 6H6v4H4V6H2V4h2V0h2v4h10V0h2v4h2v2h-2v4h-2V6z' fill='%2392acab' fill-opacity='0.45' fill-rule='evenodd'/%3E%3C/svg%3E");
 `;
 
 function App(props) {

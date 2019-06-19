@@ -5,7 +5,6 @@ import {
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faTrain } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { logout } from '../store/actions';
 
@@ -30,12 +29,12 @@ function Appbar(props) {
                 <Grid item>
                 <Link to='/' >
                     <IconButton color="inherit">
-                        <FontAwesomeIcon icon={faHome} />
+                        <FontAwesomeIcon icon='home' />
                     </IconButton>
                 </Link>
                 <Link to='/trains'>
                     <IconButton color="inherit">
-                        <FontAwesomeIcon icon={faTrain} />
+                        <FontAwesomeIcon icon='train' />
                     </IconButton>
                 </Link>
                 </Grid>

@@ -5,7 +5,6 @@ import {
 } from '@material-ui/core';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const StyledCard = styled(Card)`
     padding: 2em;
@@ -41,7 +40,7 @@ function ListContentsList(props) {
                         {item.fav
                           ? <ListItemIcon
                               onClick={handleClickFav}>
-                              <FontAwesomeIcon icon={faStar} />
+                              <FontAwesomeIcon icon='star' />
                           </ListItemIcon>
                           : null}
                   </ListItem>),
