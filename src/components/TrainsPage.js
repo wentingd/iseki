@@ -10,15 +10,18 @@ const StyledCard = styled(Card)`
 `;
 
 function TrainsPage(props) {
-  const allTrainData = props.allTrainData || [];
   return (
           <div style={{ padding: 20 }}>
           <Grid container spacing={2}>
               {
-                allTrainData.map((trainline, index) => (
+                (props.allTrainData || []).map((trainline, index) => (
                   <Grid item key={index}>
                     <StyledCard>
-                      <StationsInfoStepper label={trainline.name} steps={trainline.stations}/>
+                      <StationsInfoStepper
+                        label={trainline.name}
+                        steps={trainline.stations}
+                        disabled={props.selected.trainline ? props.selected.trainline !== trainline.name : false}
+                      />
                     </StyledCard>
                   </Grid>))
               }
@@ -30,6 +33,7 @@ function TrainsPage(props) {
 const mapStateToProps = (state, ownProps) => {
   return {
     allTrainData: state.allTrainData,
+    selected: state.selected,
   };
 };
 

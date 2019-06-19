@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
-  orange, blue, indigo, red, grey,
+  orange, blue, red, grey,
 } from '@material-ui/core/colors';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {

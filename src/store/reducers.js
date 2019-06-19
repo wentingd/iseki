@@ -9,6 +9,9 @@ const initialState = {
     config: { trainlines: [], stations: [] },
   },
   allTrainData: mockTrainData,
+  selected: {
+    trainline: null,
+  },
 };
 
 function combined(state = initialState, action) {
@@ -19,6 +22,8 @@ function combined(state = initialState, action) {
       return { ...state, user: { ...state.user, ...action.user } };
     case types.USER_LOGOUT:
       return { ...state, user: action.user };
+    case types.SELECT_TRAINLINE:
+      return { ...state, selected: { ...state.selected, ...action.selected } };
     case types.CLEAN_STATE:
       return initialState;
     default:

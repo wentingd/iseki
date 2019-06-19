@@ -33,6 +33,15 @@ export function getUserConfig(config) {
   };
 }
 
+export function selectTrainline(trainline) {
+  return {
+    type: types.SELECT_TRAINLINE,
+    selected: {
+      trainline,
+    },
+  };
+}
+
 export function logout() {
   return {
     type: types.USER_LOGOUT,
