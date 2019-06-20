@@ -12,7 +12,7 @@ function Profile(props) {
         <Avatar>
           {props.email ? props.email.substring(0, 2) : 'user'}
         </Avatar>
-        <Typography variant="body2">
+        <Typography variant='body2'>
             Logged in as : {props.email}
         </Typography>
     </StyledCard>

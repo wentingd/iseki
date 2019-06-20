@@ -94,7 +94,7 @@ function StationsInfoStepper(props) {
             : <React.Fragment>
               {
                 state.showNext
-                  ? (<Stepper activeStep={state.activeStepEnd} orientation="vertical">
+                  ? (<Stepper activeStep={state.activeStepEnd} orientation='vertical'>
                       {
                         props.steps.map((station, index) => {
                           return (
@@ -113,14 +113,14 @@ function StationsInfoStepper(props) {
                                   {state.activeStepStart === index ? '(start)' : null}
                               </StepLabel>
                               <StepContent>
-                                  <Typography variant="caption">(Getting off here)</Typography>
+                                  <Typography variant='caption'>(Getting off here)</Typography>
                               </StepContent>
                             </Step>
                           );
                         })
                       }
                   </Stepper>)
-                  : (<Stepper activeStep={state.activeStepStart} orientation="vertical">
+                  : (<Stepper activeStep={state.activeStepStart} orientation='vertical'>
                       {
                         props.steps.map((station, index) => {
                           return (
@@ -136,7 +136,7 @@ function StationsInfoStepper(props) {
                                   </Typography>
                               </StepLabel>
                               <StepContent>
-                                  <Typography variant="caption">(Getting on here)</Typography>
+                                  <Typography variant='caption'>(Getting on here)</Typography>
                               </StepContent>
                             </Step>
                           );

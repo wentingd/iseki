@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Paper } from '@material-ui/core';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -8,13 +9,14 @@ import {
 } from '@material-ui/core/colors';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar,
+  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar, faUserCircle, faTicketAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
-import Routes from './Routes';
+import Register from './Register';
+import ProtectedRoutes from './ProtectedRoutes';
 
 library.add(
-  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar,
+  faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar, faUserCircle, faTicketAlt,
 );
 
 const mainTheme = createMuiTheme({
@@ -29,34 +31,34 @@ const mainTheme = createMuiTheme({
   },
 });
 
-const FullPageWrapper = styled.section`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  background-color: #dbe3e5;
-  background-image: url("data:image/svg+xml,%3Csvg width='20' height='10' viewBox='0 0 20 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16 6H6v4H4V6H2V4h2V0h2v4h10V0h2v4h2v2h-2v4h-2V6z' fill='%2392acab' fill-opacity='0.45' fill-rule='evenodd'/%3E%3C/svg%3E");
-`;
-
 function App(props) {
   const { isAuthenticated } = props.user;
   return (
     <MuiThemeProvider theme={mainTheme}>
-      <div className="App">
+      <div className='App'>
         {
           isAuthenticated
-            ? <Routes/>
-            : <FullPageWrapper>
-                <Paper>
-                  <LogIn />
-                </Paper>
-              </FullPageWrapper>
+            ? <ProtectedRoutes/>
+            : <Router>
+                <Switch>
+                  <Route exact path='/' component={LogIn} />
+                  <Route exact path='/register' component={Register} />
+                  <Route component={NoMatch} />
+                </Switch>
+              </Router>
           }
       </div>
       </MuiThemeProvider>
+  );
+}
+
+function NoMatch({ location }) {
+  return (
+    <div>
+      <h3>
+        No match for <code>{location.pathname}</code>
+      </h3>
+    </div>
   );
 }
 

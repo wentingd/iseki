@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
+import useReactRouter from 'use-react-router';
 import { logout } from '../store/actions';
 
 const StyledToolbar = styled(Toolbar)`
@@ -18,30 +19,38 @@ const StyledToolbar = styled(Toolbar)`
 `;
 
 function Appbar(props) {
+  // eslint-disable-next-line no-shadow
+  const { history } = useReactRouter();
+
+  const onClickLogout = (e) => {
+    props.logout();
+    history.push('/');
+  };
+
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position='static' color='primary'>
         <StyledToolbar>
             <Grid
-                justify="space-between"
+                justify='space-between'
                 container
                 spacing={6}
                 >
                 <Grid item>
                 <Link to='/' >
-                    <IconButton color="inherit">
+                    <IconButton color='inherit'>
                         <FontAwesomeIcon icon='home' />
                     </IconButton>
                 </Link>
                 <Link to='/trains'>
-                    <IconButton color="inherit">
+                    <IconButton color='inherit'>
                         <FontAwesomeIcon icon='train' />
                     </IconButton>
                 </Link>
                 </Grid>
                 <Button
-                    color="inherit"
-                    onClick={(e) => props.logout()}>
-                        logout
+                    color='inherit'
+                    onClick={onClickLogout}>
+                    logout
                 </Button>
             </Grid>
         </StyledToolbar>

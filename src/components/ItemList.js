@@ -25,7 +25,7 @@ function ListContentsList(props) {
   return (
         <StyledCard>
           <List subheader={
-            <ListSubheader component="div" color="primary">
+            <ListSubheader component='div' color='primary'>
               {props.label}
             </ListSubheader>
           }>

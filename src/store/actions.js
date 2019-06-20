@@ -17,6 +17,14 @@ export const fetchUserConfig = async(id) => {
   return null;
 };
 
+export const postToRegisterUser = async(payload) => {
+  const response = await axios.post('/user/register', payload);
+  if (response.status === 200) {
+    return response.data;
+  }
+  return null;
+};
+
 export function login(fetchedUser) {
   return {
     type: types.USER_LOCAL_LOGIN,
