@@ -1,21 +1,18 @@
 const express = require('express');
 const axios = require('axios');
-const passport = require('passport');
-const JwtStrategy = require('passport-jwt').Strategy;
-const { ExtractJwt } = require('passport-jwt');
 
 const router = express.Router();
 const logger = require('./logger');
 const mockUser = require('../src/mock/mockUser');
 
-const postToLoginUser = ({ email, password }) => {
+const postToUserRoute = ({ email, password, username }, action) => {
   if (process.env.USE_MOCK === true) {
     return {
       success: mockUser[email].password === password,
     };
   }
   return axios
-    .post(`${process.env.ISEKI_API_BASE_URL}/user/login`, { email, password })
+    .post(`${process.env.ISEKI_API_BASE_URL}/user/${action}`, { email, password, username })
     .then((response) => response.data)
     .catch((err) => {
       return { success: false, message: err.message };
@@ -44,28 +41,10 @@ const setAuthToken = (token) => {
   }
 };
 
-passport.use(new JwtStrategy(
-  {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_SECRET,
-  },
-  ((jwtPayload, done) => {
-    console.log(jwtPayload);
-    // User.findOne({ id: jwtPayload.sub }, (err, user) => {
-    //   if (err) {
-    //     return done(err, false);
-    //   }
-    //   if (user) {
-    //     return done(null, user);
-    //   }
-    // });
-  }),
-));
-
 router.post('/user/login', async(req, res, next) => {
   const {
     success, token, id, message,
-  } = await postToLoginUser(req.body);
+  } = await postToUserRoute(req.body, 'login');
   if (success) {
     res.cookie('jwt', token);
     setAuthToken(token);
@@ -78,6 +57,19 @@ router.post('/user/login', async(req, res, next) => {
   }
   logger.error('Error loggin in :: user not found.');
   return res.status(404).json({ message });
+});
+
+router.post('/user/register', async(req, res, next) => {
+  const {
+    success, email, username, _id, message,
+  } = await postToUserRoute(req.body, 'register');
+  if (success) {
+    return res.status(200).json({
+      success, email, username, id: _id,
+    });
+  }
+  logger.error('Error loggin in :: user not found.');
+  return res.status(404).json({ message, success });
 });
 
 router.get('/user/id/:id', async(req, res, next) => {

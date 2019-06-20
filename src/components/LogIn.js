@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button, TextField, Typography, Grid, Icon, Divider, Link, Paper,
+  Button, Typography, Grid, Icon, Link, Paper,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import styled from 'styled-components';

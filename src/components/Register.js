@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Button, TextField, Typography, Grid, Icon, Divider, Link, Paper,
 } from '@material-ui/core';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,6 +29,7 @@ const Wrapper = styled(Paper)`
 
 function Register(props) {
   const [state, setState] = useState({
+    isRegistered: false,
     email: '',
     username: '',
     password: '',
@@ -41,18 +43,45 @@ function Register(props) {
   };
 
   const handleSubmit = async() => {
+    const { success, email, message } = await postToRegisterUser(state);
+    if (success) {
+      setState({
+        isRegistered: true,
+        email,
+      });
+    }
   };
 
   const onKeyPress = (e) => {
     if (e.which === 13) {
-      this.handleSubmit();
+      handleSubmit();
     }
   };
 
   return (
     <FullPageWrapper>
       <Wrapper>
-        <Grid container
+      {
+      state.isRegistered
+        ? <React.Fragment>
+            <Typography variant='h3'>
+              Thank you!
+            </Typography>
+            <Divider />
+            <FontAwesomeIcon
+                icon='ticket-alt'
+                color='orange'
+                size='3x'
+            />
+            <Typography variant='body2' color='textSecondary' component='p'>
+            You are now a registered member with us.
+            </Typography>
+            <br></br>            
+            <Link href='/'>
+              <Button variant='outlined'>Login here</Button>
+            </Link>
+          </React.Fragment>
+        : <Grid container
           spacing={1}
           direction='column'
           justify='space-between'
@@ -65,55 +94,66 @@ function Register(props) {
               <FontAwesomeIcon icon='user-circle' size='5x' variant='outlined' />
             </Icon>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id='Register-email-input'
-              label='email'
-              value={state.email}
-              onChange={onFieldChange('email')}
-              margin='normal'
-              />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id='Register-username-input'
-              label='username'
-              value={state.username}
-              onChange={onFieldChange('username')}
-              margin='normal'
-              />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id='Register-password-input'
-              type='password'
-              label='password'
-              value={state.password}
-              onChange={onFieldChange('password')}
-              autoComplete='current-password'
-              margin='normal'
-              />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id='Register-password-confirm-input'
-              type='password'
-              label='password confirm'
-              value={state.passwordConfirm}
-              autoComplete='current-password'
-              margin='normal'
-              />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              label='Submit'
-              color='primary'
-              variant='outlined'
-              onClick={handleSubmit}>
-              submit
-            </Button>
-          </Grid>
-          <br/>
+          <ValidatorForm
+            onSubmit={handleSubmit}
+          >
+            <Grid item xs={12}>
+              <TextValidator
+                id='Register-email-input'
+                label='email'
+                value={state.email}
+                onChange={onFieldChange('email')}
+                margin='normal'
+                validators={['required', 'isEmail']}
+                errorMessages={['this field is required', 'email is not valid']}
+                />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id='Register-username-input'
+                label='username'
+                value={state.username}
+                onChange={onFieldChange('username')}
+                margin='normal'
+                />
+            </Grid>
+            <Grid item xs={12}>
+              <TextValidator
+                id='Register-password-input'
+                type='password'
+                label='password'
+                value={state.password}
+                onChange={onFieldChange('password')}
+                autoComplete='current-password'
+                margin='normal'
+                validators={['required']}
+                errorMessages={['this field is required']}
+                />
+            </Grid>
+            <Grid item xs={12}>
+              <TextValidator
+                id='Register-password-confirm-input'
+                type='password'
+                label='password confirm'
+                value={state.passwordConfirm}
+                autoComplete='current-password'
+                margin='normal'
+                validators={['required']}
+                errorMessages={['this field is required']}
+                onKeyPress={onKeyPress}
+                />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                label='Submit'
+                color='primary'
+                variant='outlined'
+                onClick={handleSubmit}>
+                submit
+              </Button>
+            </Grid>
+            <br/>
+          </ValidatorForm>
           <Grid item xs={12}>
             <Divider />
           </Grid>
@@ -123,11 +163,12 @@ function Register(props) {
             </Typography>
           </Grid>
         </Grid>
+      }
       </Wrapper>
     </FullPageWrapper>
   );
 }
 
-const mapDispatchToProps = { };
+const mapDispatchToProps = {  };
 
 export default connect(null, mapDispatchToProps)(Register);
