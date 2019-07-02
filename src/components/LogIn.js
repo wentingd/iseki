@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import Notifier from './Notifier';
 import {
   fetchUser, login, getUserConfig, fetchUserConfig,
 } from '../store/actions';
@@ -31,14 +32,20 @@ function Login(props) {
   const [state, setState] = useState({
     email: '',
     password: '',
+    showNotifier: false,
+    notifierMessage: '',
   });
 
   const handleSubmit = async() => {
-    const found = await fetchUser({ ...state });
-    if (found) {
-      props.login(found);
-      props.getUserConfig(await fetchUserConfig(found.id));
+    const { message, ...user } = await fetchUser({ ...state });
+    if (!user.isAuthenticated) {
+      return setState({
+        showNotifier: true,
+        notifierMessage: message,
+      });
     }
+    props.login(user);
+    return props.getUserConfig(await fetchUserConfig(user.id));
   };
 
   const onKeyPress = (e) => {
@@ -117,6 +124,12 @@ function Login(props) {
           </Grid>
         </Grid>
         </Wrapper>
+        <Notifier
+          isOpen={state.showNotifier}
+          onClose={() => { setState({ showNotifier: false }); }}
+          message={state.notifierMessage}
+          variant={'error'}
+        />
     </FullPageWrapper>
   );
 }

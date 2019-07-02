@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
   IconButton, Icon, Snackbar, SnackbarContent,
@@ -43,16 +43,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Notifier(props) {
   const classes = useStyles();
-  const { message, variant } = props;
-  const [state, setState] = useState({
-    open: true,
-  });
-
-  const onClose = () => {
-    setState({
-      open: false,
-    });
-  };
+  const {
+    message, variant, isOpen, onClose,
+  } = props;
 
   return (
     <Snackbar
@@ -60,7 +53,7 @@ function Notifier(props) {
         vertical: 'bottom',
         horizontal: 'left',
       }}
-      open={state.open}
+      open={isOpen}
       autoHideDuration={12000}
       onClose={onClose}
     >

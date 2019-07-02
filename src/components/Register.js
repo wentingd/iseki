@@ -46,16 +46,14 @@ function Register(props) {
   };
 
   const handleSubmit = async() => {
-    const { success, email, message } = await postToRegisterUser({
-      email: state.email,
-      username: state.username,
-      password: state.password,
-    });
+    const { success, message } = await postToRegisterUser(state);
     if (success) {
       setState({
         ...state,
+        username: '',
+        password: '',
+        email: '',
         isRegistered: true,
-        email,
         showNotifier: true,
         notifierMessage: 'Succesfully registered as a new user :)',
       });
@@ -85,7 +83,7 @@ function Register(props) {
       state.isRegistered
         ? <React.Fragment>
             <Typography variant='h3'>
-              Thank you!
+              Thank you :)
             </Typography>
             <Divider />
             <FontAwesomeIcon
@@ -94,7 +92,7 @@ function Register(props) {
                 size='3x'
             />
             <Typography variant='body2' color='textSecondary' component='p'>
-            You are now a registered member with us.
+            You are now a registered member of iSeki!
             </Typography>
             <br/>
             <Link href='/'>
@@ -172,14 +170,12 @@ function Register(props) {
           </Grid>
         </Grid>
       }
-      {
-        state.showNotifier
-          ? <Notifier
-              message={state.notifierMessage}
-              variant={state.isRegistered ? 'success' : 'error'}
-          />
-          : null
-      }
+      <Notifier
+        isOpen={state.showNotifier}
+        onClose={() => { setState({ showNotifier: false }); }}
+        message={state.notifierMessage}
+        variant={state.isRegistered ? 'success' : 'error'}
+      />
       </Wrapper>
     </FullPageWrapper>
   );

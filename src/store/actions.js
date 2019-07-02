@@ -2,11 +2,10 @@ import axios from 'axios';
 import * as types from './constants';
 
 export const fetchUser = async(payload) => {
-  const response = await axios.post('/user/login', payload);
-  if (response.status === 200) {
-    return response.data;
-  }
-  return null;
+  const response = await axios
+    .post('/user/login', payload)
+    .catch((err) => err.response);
+  return response.data;
 };
 
 export const fetchUserConfig = async(id) => {
