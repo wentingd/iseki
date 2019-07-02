@@ -6,6 +6,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Notifier from './Notifier';
 import {
   postToRegisterUser,
 } from '../store/actions';
@@ -33,6 +34,8 @@ function Register(props) {
     email: '',
     username: '',
     password: '',
+    showNotifier: false,
+    notifierMessage: '',
   });
 
   const onFieldChange = (fieldName) => (e) => {
@@ -43,11 +46,28 @@ function Register(props) {
   };
 
   const handleSubmit = async() => {
-    const { success, email, message } = await postToRegisterUser(state);
+    const { success, email, message } = await postToRegisterUser({
+      email: state.email,
+      username: state.username,
+      password: state.password,
+    });
     if (success) {
       setState({
+        ...state,
         isRegistered: true,
         email,
+        showNotifier: true,
+        notifierMessage: 'Succesfully registered as a new user :)',
+      });
+    }
+    if (!success && message) {
+      setState({
+        ...state,
+        username: '',
+        password: '',
+        email: '',
+        showNotifier: true,
+        notifierMessage: message,
       });
     }
   };
@@ -76,7 +96,7 @@ function Register(props) {
             <Typography variant='body2' color='textSecondary' component='p'>
             You are now a registered member with us.
             </Typography>
-            <br></br>            
+            <br/>
             <Link href='/'>
               <Button variant='outlined'>Login here</Button>
             </Link>
@@ -128,18 +148,6 @@ function Register(props) {
                 margin='normal'
                 validators={['required']}
                 errorMessages={['this field is required']}
-                />
-            </Grid>
-            <Grid item xs={12}>
-              <TextValidator
-                id='Register-password-confirm-input'
-                type='password'
-                label='password confirm'
-                value={state.passwordConfirm}
-                autoComplete='current-password'
-                margin='normal'
-                validators={['required']}
-                errorMessages={['this field is required']}
                 onKeyPress={onKeyPress}
                 />
             </Grid>
@@ -164,11 +172,17 @@ function Register(props) {
           </Grid>
         </Grid>
       }
+      {
+        state.showNotifier
+          ? <Notifier
+              message={state.notifierMessage}
+              variant={state.isRegistered ? 'success' : 'error'}
+          />
+          : null
+      }
       </Wrapper>
     </FullPageWrapper>
   );
 }
 
-const mapDispatchToProps = {  };
-
-export default connect(null, mapDispatchToProps)(Register);
+export default connect()(Register);

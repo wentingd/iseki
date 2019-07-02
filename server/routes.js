@@ -15,6 +15,9 @@ const postToUserRoute = ({ email, password, username }, action) => {
     .post(`${process.env.ISEKI_API_BASE_URL}/user/${action}`, { email, password, username })
     .then((response) => response.data)
     .catch((err) => {
+      if (err.response) {
+        return err.response.data;
+      }
       return { success: false, message: err.message };
     });
 };
@@ -55,8 +58,8 @@ router.post('/user/login', async(req, res, next) => {
       id,
     });
   }
-  logger.error('Error loggin in :: user not found.');
-  return res.status(404).json({ message });
+  logger.error(`Error loggin in: ${message}`);
+  return res.status(404).json({ message, success });
 });
 
 router.post('/user/register', async(req, res, next) => {
@@ -68,7 +71,7 @@ router.post('/user/register', async(req, res, next) => {
       success, email, username, id: _id,
     });
   }
-  logger.error('Error loggin in :: user not found.');
+  logger.error(`Error registering: ${message}`);
   return res.status(404).json({ message, success });
 });
 

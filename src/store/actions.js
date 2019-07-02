@@ -18,11 +18,10 @@ export const fetchUserConfig = async(id) => {
 };
 
 export const postToRegisterUser = async(payload) => {
-  const response = await axios.post('/user/register', payload);
-  if (response.status === 200) {
-    return response.data;
-  }
-  return null;
+  const response = await axios
+    .post('/user/register', payload)
+    .catch((err) => err.response);
+  return response.data;
 };
 
 export function login(fetchedUser) {

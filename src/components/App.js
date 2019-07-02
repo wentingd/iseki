@@ -8,6 +8,7 @@ import {
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar, faUserCircle, faTicketAlt,
+  faCheckCircle, faExclamationTriangle, faExclamationCircle, faInfo, faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import Register from './Register';
@@ -15,6 +16,7 @@ import ProtectedRoutes from './ProtectedRoutes';
 
 library.add(
   faTrain, faAngleDoubleRight, faCheckSquare, faCoffee, faHome, faStar, faUserCircle, faTicketAlt,
+  faCheckCircle, faExclamationTriangle, faExclamationCircle, faInfo, faTimes,
 );
 
 const mainTheme = createMuiTheme({
@@ -50,11 +52,11 @@ function App(props) {
   );
 }
 
-function NoMatch({ location }) {
+function NoMatch({ route }) {
   return (
     <div>
       <h3>
-        No match for <code>{location.pathname}</code>
+        No match for <code>{ route.pathname }</code>
       </h3>
     </div>
   );
