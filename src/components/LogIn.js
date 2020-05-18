@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Button, Typography, Grid, Icon, Link, Paper,
+  Button, Typography, Grid, Icon, Link, Paper, TextField,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -34,6 +34,8 @@ function Login(props) {
     password: '',
     showNotifier: false,
     notifierMessage: '',
+    emailFieldError: false,
+    passwordFieldError: false,
   });
 
   const handleSubmit = async() => {
@@ -77,32 +79,34 @@ function Login(props) {
                 <FontAwesomeIcon icon='train' size='5x' variant='outlined' />
               </Icon>
           </Grid>
-          <ValidatorForm
+          <form
             onSubmit={handleSubmit}
           >
             <Grid item xs={12}>
-              <TextValidator
+              <TextField
+                required={true}
+                // error ={state.email.length === 0}
                 id='Login-email-input'
                 label='email'
                 value={state.email}
                 onChange={onFieldChange('email')}
+                helperText={'email is required'}
                 margin='normal'
-                validators={['required', 'isEmail']}
-                errorMessages={['this field is required', 'email is not valid']}
                 />
             </Grid>
             <Grid item xs={12}>
-              <TextValidator
+              <TextField
+                // error={state.email.length === 0}
+                required={true}
                 id='Login-password-input'
                 type='password'
                 label='password'
                 value={state.password}
                 onChange={onFieldChange('password')}
                 onKeyPress={onKeyPress}
+                helperText={'password is required'}
                 autoComplete='current-password'
                 margin='normal'
-                validators={['required']}
-                errorMessages={['this field is required']}
                 />
             </Grid>
             <br/>
@@ -116,7 +120,7 @@ function Login(props) {
               </Button>
             </Grid>
             <br/>
-          </ValidatorForm>
+          </form>
           <Grid item xs={12}>
             <Typography variant='body1'>
               Do not have an account yet? <Link href='/register'>Register</Link> now! :)
